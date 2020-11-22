@@ -29,6 +29,7 @@ module.exports = {
       project: './tsconfig.json',
     },
     rules: {
+      'react/no-unused-state': 'warn',
       'linebreak-style': 'off',
       'prettier/prettier': [
         'error',
