@@ -1,17 +1,16 @@
 ﻿using Domain;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace Persistance
 {
     public class DataContext : DbContext
     {
         public DataContext(DbContextOptions options) : base(options)
-        {
-
-        }
+        { }
 
         public DbSet<Value> Values { get; set; }
+        public DbSet<StateRegion> StateRegions { get; set; }
+        public DbSet<CountryRegion> CountryRegions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
