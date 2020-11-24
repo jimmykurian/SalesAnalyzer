@@ -1,20 +1,16 @@
-﻿using Domain;
-using MediatR;
+﻿using MediatR;
 using Persistance;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.StateRegions
+namespace Application.StateRegions.Commands
 {
-    public class Create
+    public class Delete
     {
         public class Command : IRequest
         {
             public Guid Id { get; set; }
-            public string State { get; set; }
-            public string Month { get; set; }
-            public int NumberOfSales { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -28,20 +24,19 @@ namespace Application.StateRegions
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var stateRegion = new StateRegion
-                {
-                    Id = request.Id,
-                    State = request.State,
-                    Month = request.Month,
-                    NumberOfSales = request.NumberOfSales
-                };
+                var stateRegion = await _context.StateRegions.FindAsync(request.Id);
 
-                _context.StateRegions.Add(stateRegion);
+                if (stateRegion == null)
+                    throw new Exception("Could not find state region record");
+
+                _context.Remove(stateRegion);
+
                 var success = await _context.SaveChangesAsync() > 0;
 
                 if (success) return Unit.Value;
 
                 throw new Exception("Problem saving changes");
+
             }
         }
     }

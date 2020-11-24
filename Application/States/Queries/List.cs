@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.StateRegions
+namespace Application.States.Queries
 {
     public class List
     {
-        public class Query : IRequest<List<StateRegion>> { }
+        public class Query : IRequest<List<State>> { }
 
-        public class Handler : IRequestHandler<Query, List<StateRegion>>
+        public class Handler : IRequestHandler<Query, List<State>>
         {
             private readonly DataContext _context;
 
@@ -21,11 +21,11 @@ namespace Application.StateRegions
                 this._context = context;
             }
 
-            public async Task<List<StateRegion>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<List<State>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var stateRegions = await _context.StateRegions.ToListAsync();
+                var states = await _context.States.ToListAsync();
 
-                return stateRegions;
+                return states;
             }
         }
     }

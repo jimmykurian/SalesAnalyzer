@@ -5,16 +5,16 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.StateRegions
+namespace Application.States.Queries
 {
     public class Details
     {
-        public class Query : IRequest<StateRegion>
+        public class Query : IRequest<State>
         {
             public Guid Id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, StateRegion>
+        public class Handler : IRequestHandler<Query, State>
         {
             private readonly DataContext _context;
 
@@ -23,11 +23,11 @@ namespace Application.StateRegions
                 this._context = context;
             }
 
-            public async Task<StateRegion> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<State> Handle(Query request, CancellationToken cancellationToken)
             {
-                var stateRegion = await _context.StateRegions.FindAsync(request.Id);
+                var state = await _context.States.FindAsync(request.Id);
 
-                return stateRegion;
+                return state;
             }
         }
     }

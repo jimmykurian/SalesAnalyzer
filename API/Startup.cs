@@ -1,4 +1,4 @@
-using Application.StateRegions;
+using Application.StateRegions.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

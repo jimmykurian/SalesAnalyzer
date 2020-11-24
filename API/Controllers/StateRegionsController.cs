@@ -1,4 +1,5 @@
-﻿using Application.StateRegions;
+﻿using Application.StateRegions.Commands;
+using Application.StateRegions.Queries;
 using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

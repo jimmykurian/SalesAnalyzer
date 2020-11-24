@@ -1,19 +1,20 @@
-﻿using MediatR;
+﻿using Domain;
+using MediatR;
 using Persistance;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.StateRegions
+namespace Application.StateRegions.Commands
 {
-    public class Edit
+    public class Create
     {
         public class Command : IRequest
         {
             public Guid Id { get; set; }
             public string State { get; set; }
             public string Month { get; set; }
-            public int? NumberOfSales { get; set; }
+            public int NumberOfSales { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -27,21 +28,20 @@ namespace Application.StateRegions
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var stateRegion = await _context.StateRegions.FindAsync(request.Id);
+                var stateRegion = new StateRegion
+                {
+                    Id = request.Id,
+                    State = request.State,
+                    Month = request.Month,
+                    NumberOfSales = request.NumberOfSales
+                };
 
-                if (stateRegion == null)
-                    throw new Exception("Could not find state region record");
-
-                stateRegion.State = request.State ?? stateRegion.State;
-                stateRegion.Month = request.Month ?? stateRegion.Month;
-                stateRegion.NumberOfSales = request.NumberOfSales ?? stateRegion.NumberOfSales;
-
+                _context.StateRegions.Add(stateRegion);
                 var success = await _context.SaveChangesAsync() > 0;
 
                 if (success) return Unit.Value;
 
                 throw new Exception("Problem saving changes");
-                        
             }
         }
     }
