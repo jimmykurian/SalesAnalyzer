@@ -21,6 +21,10 @@ import axios from "axios";
 // Models
 import { IStateRegion } from "../models/stateRegion";
 
+// Components
+import StateForm from "../../feature/stateForm";
+import CountryForm from "../../feature/countryForm";
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -34,6 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const App = () => {
   const [stateRegions, setStateRegions] = useState<IStateRegion[]>([]);
+  let [flag, setFlag] = useState("");
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
@@ -80,11 +85,11 @@ const App = () => {
 
   return (
     <div>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" style={{ color: "#FFFFFF" }} gutterBottom>
         <AssessmentOutlined fontSize="large" />
         Sales Analyzer
       </Typography>
-      <ul>
+      <ul style={{ color: "#FFFFFF" }}>
         {stateRegions.map((stateRegion) => (
           <li key={stateRegion.id}>
             {stateRegion.state}, {stateRegion.month},{" "}
@@ -126,8 +131,22 @@ const App = () => {
                       id="menu-list-grow"
                       onKeyDown={handleListKeyDown}
                     >
-                      <MenuItem onClick={handleClose}>US States/Territories</MenuItem>
-                      <MenuItem onClick={handleClose}>Countries</MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          setFlag((flag = "state"));
+                          handleClose;
+                        }}
+                      >
+                        US States/Territories
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          setFlag((flag = "countries"));
+                          handleClose;
+                        }}
+                      >
+                        Countries
+                      </MenuItem>
                     </MenuList>
                   </ClickAwayListener>
                 </Paper>
@@ -135,6 +154,15 @@ const App = () => {
             )}
           </Popper>
         </div>
+      </div>
+      <div>
+        {flag === "state" ? (
+          <StateForm />
+        ) : flag === "countries" ? (
+          <CountryForm />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

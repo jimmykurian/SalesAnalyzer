@@ -37,5 +37,8 @@ module.exports = {
           endOfLine: 'auto',
         },
       ],
+      "jsx-a11y/label-has-associated-control": 0,
+      "no-use-before-define": 0,
+      "react/jsx-props-no-spreading": 0
     },
   };
