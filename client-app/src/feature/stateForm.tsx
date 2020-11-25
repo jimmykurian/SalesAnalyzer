@@ -136,7 +136,7 @@ function StateForm() {
                     type="number"
                     style={{ background: "#FFFFFF", width: "100%" }}
                     size="small"
-                    name={`${fieldName}.salesName`}
+                    name={`${fieldName}.numberOfSales`}
                     inputRef={register({ required: true, maxLength: 10 })}
                   />
                 </label>
