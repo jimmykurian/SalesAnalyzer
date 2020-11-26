@@ -38,10 +38,16 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const App = () => {
   const [stateRegions, setStateRegions] = useState<IStateRegion[]>([]);
+  const [selectedSubmission, setSubmission] = useState("");
   let [flag, setFlag] = useState("");
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
+
+  const updateStateSubmission = () => {
+    setSubmission("states");
+    setFlag("");
+  };
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -157,13 +163,17 @@ const App = () => {
       </div>
       <div>
         {flag === "state" ? (
-          <StateForm />
+          <StateForm
+            submissionHandler={updateStateSubmission}
+            selectedSubmission={selectedSubmission}
+          />
         ) : flag === "countries" ? (
           <CountryForm />
         ) : (
           ""
         )}
       </div>
+      <div>{selectedSubmission === "states" ? "STATES TEST" : ""}</div>
     </div>
   );
 };

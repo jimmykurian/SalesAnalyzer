@@ -1,4 +1,5 @@
 /* eslint-disable no-restricted-globals */
+/* eslint-disable no-debugger */
 
 // React imports
 import React, { useEffect, useState } from "react";
@@ -19,10 +20,16 @@ import * as _ from "lodash";
 import { IStateUSA } from "../app/models/statesUSA";
 import { IStateRegion } from "../app/models/stateRegion";
 
-function StateForm() {
+interface Props {
+  submissionHandler: () => void;
+  selectedSubmission: string;
+}
+
+const StateForm = ({ submissionHandler, selectedSubmission }: Props) => {
   const [indexes, setIndexes] = useState([] as any);
   const [counter, setCounter] = useState(0);
   const [statesUSA, setStatesUSA] = useState<IStateUSA[]>([]);
+
   const { register, handleSubmit, errors } = useForm();
 
   function generateUUID(): string {
@@ -72,7 +79,8 @@ function StateForm() {
           console.log(error);
         }
       );
-    location.reload();
+    debugger;
+    submissionHandler();
   };
 
   const addRecord = () => {
@@ -208,6 +216,6 @@ function StateForm() {
       </div>
     </div>
   );
-}
+};
 
 export default StateForm;
