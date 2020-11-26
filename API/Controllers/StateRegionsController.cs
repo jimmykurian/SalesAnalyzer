@@ -34,9 +34,9 @@ namespace API.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<Unit>> Create(Create.Command command)
+        public async Task<ActionResult<Unit>> Create(StateRegionsRequest stateRegionsRequest)
         {
-            return await _mediator.Send(command);
+            return await _mediator.Send(new Create.Command { StateRegions = stateRegionsRequest.States });
         }
 
         [HttpPut("{id}")]

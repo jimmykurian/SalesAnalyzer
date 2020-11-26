@@ -2,6 +2,7 @@
 using MediatR;
 using Persistance;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,10 +12,7 @@ namespace Application.StateRegions.Commands
     {
         public class Command : IRequest
         {
-            public Guid Id { get; set; }
-            public string State { get; set; }
-            public string Month { get; set; }
-            public int NumberOfSales { get; set; }
+            public List<StateRegion> StateRegions { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -28,18 +26,28 @@ namespace Application.StateRegions.Commands
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var stateRegion = new StateRegion
+                var successCounts = 0;
+                foreach (var element in request.StateRegions)
                 {
-                    Id = request.Id,
-                    State = request.State,
-                    Month = request.Month,
-                    NumberOfSales = request.NumberOfSales
-                };
+                    var stateRegion = new StateRegion
+                    {
+                        Id = new Guid(),
+                        State = element.State,
+                        Month = element.Month,
+                        NumberOfSales = element.NumberOfSales
+                    };
 
-                _context.StateRegions.Add(stateRegion);
-                var success = await _context.SaveChangesAsync() > 0;
+                    _context.StateRegions.Add(stateRegion);
+                    var success = await _context.SaveChangesAsync() > 0;
+                    
+                    if (success)
+                    {
+                        successCounts++;
+                    }
+                }
 
-                if (success) return Unit.Value;
+
+                if (successCounts > 0) return Unit.Value;
 
                 throw new Exception("Problem saving changes");
             }
