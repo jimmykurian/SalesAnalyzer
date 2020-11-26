@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-globals */
+
 // React imports
 import React, { useEffect, useState } from "react";
 import "../app/layout/styles.css";
@@ -15,6 +17,7 @@ import * as _ from "lodash";
 
 // Models
 import { IStateUSA } from "../app/models/statesUSA";
+import { IStateRegion } from "../app/models/stateRegion";
 
 function StateForm() {
   const [indexes, setIndexes] = useState([] as any);
@@ -22,8 +25,54 @@ function StateForm() {
   const [statesUSA, setStatesUSA] = useState<IStateUSA[]>([]);
   const { register, handleSubmit, errors } = useForm();
 
+  function generateUUID(): string {
+    // Public Domain/MIT
+    let d = new Date().getTime(); // Timestamp
+    let d2 = (performance && performance.now && performance.now() * 1000) || 0; // Time in microseconds since page-load or 0 if unsupported
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+      /[xy]/g,
+      function (c) {
+        let r = Math.random() * 16; // random number between 0 and 16
+        if (d > 0) {
+          // Use timestamp until depleted
+          r = (d + r) % 16 | 0;
+          d = Math.floor(d / 16);
+        } else {
+          // Use microseconds since page-load if supported
+          r = (d2 + r) % 16 | 0;
+          d2 = Math.floor(d2 / 16);
+        }
+        return (c === "x" ? r : (r & 0x3) | 0x8).toString(16);
+      }
+    );
+  }
+
   const onSubmit = (data: any) => {
     console.log(data);
+    const stateRegions: IStateRegion[] = [];
+    data.states.forEach((element: any, index: any) => {
+      const stateRegion: IStateRegion = {
+        id: generateUUID(),
+        state: element.state,
+        month: element.month,
+        numberOfSales: parseInt(element.numberOfSales, 10),
+      };
+      stateRegions.push(stateRegion);
+    });
+
+    axios
+      .post("http://localhost:5000/api/stateRegions", {
+        stateRegions,
+      })
+      .then(
+        (response) => {
+          console.log(response);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    location.reload();
   };
 
   const addRecord = () => {
@@ -98,7 +147,7 @@ function StateForm() {
                         color="secondary"
                         style={{ background: "#FFFFFF" }}
                         size="small"
-                        name={`${fieldName}.stateName`}
+                        name={`${fieldName}.state`}
                         inputRef={register({ required: true })}
                       />
                     )}
@@ -120,7 +169,7 @@ function StateForm() {
                         color="secondary"
                         style={{ background: "#FFFFFF" }}
                         size="small"
-                        name={`${fieldName}.monthName`}
+                        name={`${fieldName}.month`}
                         inputRef={register({ required: true })}
                       />
                     )}

@@ -8,7 +8,7 @@ namespace Domain
     public class StateRegionsRequest
     {
   
-        public List<StateRegion> States { get; set; }
+        public List<StateRegion> stateRegions { get; set; }
         public int Count { get; set; }
     }
 }
