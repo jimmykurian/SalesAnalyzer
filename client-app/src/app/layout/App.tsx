@@ -14,6 +14,12 @@ import Paper from "@material-ui/core/Paper/Paper";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener/ClickAwayListener";
 import MenuList from "@material-ui/core/MenuList/MenuList";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
+import {
+  DataGrid,
+  ColDef,
+  ValueGetterParams,
+  RowData,
+} from "@material-ui/data-grid";
 
 // 3rd-party libraries
 import axios from "axios";
@@ -24,6 +30,8 @@ import { IStateRegion } from "../models/stateRegion";
 // Components
 import StateForm from "../../feature/stateForm";
 import CountryForm from "../../feature/countryForm";
+import { IStateMonthMatrix } from "../models/stateMonthMatrix";
+import _ from "lodash";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,7 +45,9 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const App = () => {
-  const [stateRegions, setStateRegions] = useState<IStateRegion[]>([]);
+  const [stateRegions, setStateRegions] = useState<IStateMonthMatrix[]>([]);
+  const [columnHeaders, setColumnHeaders] = useState<ColDef[]>([]);
+  const [rows, setRows] = useState<RowData[]>([]);
   const [selectedSubmission, setSubmission] = useState("");
   let [flag, setFlag] = useState("");
   const classes = useStyles();
@@ -81,11 +91,154 @@ const App = () => {
     prevOpen.current = open;
   }, [open]);
 
+  function getColumnHeadersAndRows(stateMonthMatrix: IStateMonthMatrix[]) {
+    const headers: ColDef[] = [];
+    const stateRows: RowData[] = [];
+    let formattedStateName: string = "";
+    let janRow: RowData = {
+      id: "January",
+    };
+    let febRow: RowData = {
+      id: "February",
+    };
+    let marRow: RowData = {
+      id: "March",
+    };
+    let aprRow: RowData = {
+      id: "April",
+    };
+    let mayRow: RowData = {
+      id: "May",
+    };
+    let junRow: RowData = {
+      id: "June",
+    };
+    let julRow: RowData = {
+      id: "July",
+    };
+    let augRow: RowData = {
+      id: "August",
+    };
+    let sepRow: RowData = {
+      id: "September",
+    };
+    let octRow: RowData = {
+      id: "October",
+    };
+    let novRow: RowData = {
+      id: "November",
+    };
+    let decRow: RowData = {
+      id: "December",
+    };
+    let avrRow: RowData = {
+      id: "Average",
+    };
+    let medRow: RowData = {
+      id: "Median",
+    };
+    let totRow: RowData = {
+      id: "Total",
+    };
+    debugger;
+    stateMonthMatrix.forEach((element: any, index: any) => {
+      const colDef: ColDef = {
+        field: _.camelCase(element.stateName),
+        headerName: element.stateName,
+      };
+      headers.push(colDef);
+
+      janRow['fieldName'] = element.januarySales;
+      formattedStateName = _.camelCase(element.stateName);
+      janRow[formattedStateName] = janRow["fieldName"]; 
+      delete janRow["fieldName"];  
+
+      febRow['fieldName'] = element.februarySales;
+      formattedStateName = _.camelCase(element.stateName);
+      febRow[formattedStateName] = febRow["fieldName"]; 
+      delete febRow["fieldName"];  
+
+      marRow['fieldName'] = element.marchSales;
+      formattedStateName = _.camelCase(element.stateName);
+      marRow[formattedStateName] = marRow["fieldName"]; 
+      delete febRow["fieldName"];  
+
+      aprRow['fieldName'] = element.aprilSales;
+      formattedStateName = _.camelCase(element.stateName);
+      aprRow[formattedStateName] = aprRow["fieldName"]; 
+      delete febRow["fieldName"];  
+
+      mayRow['fieldName'] = element.juneSales;
+      formattedStateName = _.camelCase(element.stateName);
+      mayRow[formattedStateName] = mayRow["fieldName"]; 
+      delete febRow["fieldName"];  
+
+      junRow['fieldName'] = element.julySales;
+      formattedStateName = _.camelCase(element.stateName);
+      junRow[formattedStateName] = junRow["fieldName"]; 
+      delete febRow["fieldName"];  
+
+      julRow['fieldName'] = element.augustSales;
+      formattedStateName = _.camelCase(element.stateName);
+      julRow[formattedStateName] = julRow["fieldName"]; 
+      delete febRow["fieldName"];  
+
+      augRow['fieldName'] = element.septemberSales;
+      formattedStateName = _.camelCase(element.stateName);
+      augRow[formattedStateName] = augRow["fieldName"]; 
+      delete febRow["fieldName"];  
+
+      sepRow['fieldName'] = element.septemberSales;
+      formattedStateName = _.camelCase(element.stateName);
+      sepRow[formattedStateName] = sepRow["fieldName"]; 
+      delete febRow["fieldName"];  
+
+      octRow['fieldName'] = element.octoberSales;
+      formattedStateName = _.camelCase(element.stateName);
+      octRow[formattedStateName] = octRow["fieldName"]; 
+      delete febRow["fieldName"];  
+
+      novRow['fieldName'] = element.novemberSales;
+      formattedStateName = _.camelCase(element.stateName);
+      novRow[formattedStateName] = novRow["fieldName"]; 
+      delete febRow["fieldName"];  
+
+      decRow['fieldName'] = element.decemberSales;
+      formattedStateName = _.camelCase(element.stateName);
+      decRow[formattedStateName] = decRow["fieldName"]; 
+      delete febRow["fieldName"];   
+      
+      avrRow['fieldName'] = element.averageSales;
+      formattedStateName = _.camelCase(element.stateName);
+      avrRow[formattedStateName] = avrRow["fieldName"]; 
+      delete febRow["fieldName"]; 
+
+      medRow['fieldName'] = element.averageSales;
+      formattedStateName = _.camelCase(element.stateName);
+      medRow[formattedStateName] = medRow["fieldName"]; 
+      delete febRow["fieldName"]; 
+
+      totRow['fieldName'] = element.totalSales;
+      formattedStateName = _.camelCase(element.stateName);
+      totRow[formattedStateName] = totRow["fieldName"]; 
+      delete febRow["fieldName"]; 
+    });
+    stateRows.push(janRow, febRow, marRow, aprRow, mayRow, junRow, julRow, augRow, sepRow, octRow, novRow, decRow, avrRow, medRow, totRow)
+    debugger;
+    setColumnHeaders(headers);
+    setRows(stateRows);
+    console.log(headers);
+    console.log(stateRows);
+  }
+
   useEffect(() => {
     axios
-      .get<IStateRegion[]>("http://localhost:5000/api/stateRegions")
+      .get<IStateMonthMatrix[]>(
+        "http://localhost:5000/api/stateRegions/getByMatrix"
+      )
       .then((response) => {
         setStateRegions(response.data);
+        getColumnHeadersAndRows(response.data);
       });
   }, []);
 
@@ -95,14 +248,6 @@ const App = () => {
         <AssessmentOutlined fontSize="large" />
         Sales Analyzer
       </Typography>
-      <ul style={{ color: "#FFFFFF" }}>
-        {stateRegions.map((stateRegion) => (
-          <li key={stateRegion.id}>
-            {stateRegion.state}, {stateRegion.month},{" "}
-            {stateRegion.numberOfSales}
-          </li>
-        ))}
-      </ul>
       <div className={classes.root}>
         <div>
           <Button
@@ -174,6 +319,9 @@ const App = () => {
         )}
       </div>
       <div>{selectedSubmission === "states" ? "STATES TEST" : ""}</div>
+      <div style={{ background: "#FFFFFF", height: 400, width: "100%" , maxWidth: 1200}}>
+        <DataGrid rows={rows} columns={columnHeaders} pageSize={15} checkboxSelection />
+      </div>
     </div>
   );
 };

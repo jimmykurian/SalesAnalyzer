@@ -1,5 +1,4 @@
-﻿
-using MathNet.Numerics.Statistics;
+﻿using MathNet.Numerics.Statistics;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -75,7 +74,6 @@ namespace Domain
                 }
                 else
                 {
-                
                     int numToRemove = 0;
                     months = months.Where(val => val != numToRemove);
                     return months.Median();

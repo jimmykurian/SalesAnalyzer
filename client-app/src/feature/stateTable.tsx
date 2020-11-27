@@ -6,17 +6,17 @@ import "../app/layout/styles.css";
 import axios from "axios";
 
 // Models
-import { IStateRegion } from "../app/models/stateRegion";
+import { IStateMonthMatrix } from "../app/models/stateMonthMatrix";
 
 const stateTable = () => {
-    const [stateRegions, setStateRegions] = useState<IStateRegion[]>([]);
-    
-    useEffect(() => {
-        axios
-          .get<IStateRegion[]>("http://localhost:5000/api/stateRegions")
-          .then((response) => {
-            setStateRegions(response.data);
-          });
-      }, []);
-    
-}
+  //   const [stateRegions, setStateRegions] = useState<IStateMonthMatrix[]>([]);
+  //   useEffect(() => {
+  //     axios
+  //       .get<IStateMonthMatrix[]>(
+  //         "http://localhost:5000/api/stateRegions/getByMatrix"
+  //       )
+  //       .then((response) => {
+  //         setStateRegions(response.data);
+  //       });
+  //   }, []);
+};
