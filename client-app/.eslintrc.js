@@ -41,5 +41,6 @@ module.exports = {
       "no-use-before-define": 0,
       "react/jsx-props-no-spreading": 0,
       "no-bitwise": 0,
+      "@typescript-eslint/dot-notation": 0
     },
   };

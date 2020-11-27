@@ -14,25 +14,19 @@ import Paper from "@material-ui/core/Paper/Paper";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener/ClickAwayListener";
 import MenuList from "@material-ui/core/MenuList/MenuList";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
-import {
-  DataGrid,
-  ColDef,
-  ValueGetterParams,
-  RowData,
-  ValueFormatterParams,
-} from "@material-ui/data-grid";
+import { ColDef, RowData, ValueFormatterParams } from "@material-ui/data-grid";
 
 // 3rd-party libraries
+import _ from "lodash";
 import axios from "axios";
 
 // Models
-import { IStateRegion } from "../models/stateRegion";
+import { IStateMonthMatrix } from "../models/stateMonthMatrix";
 
 // Components
 import StateForm from "../../feature/stateForm";
 import CountryForm from "../../feature/countryForm";
-import { IStateMonthMatrix } from "../models/stateMonthMatrix";
-import _ from "lodash";
+import StateTable from "../../feature/stateTable";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,56 +40,18 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const App = () => {
-  const [stateRegions, setStateRegions] = useState<IStateMonthMatrix[]>([]);
+  const [selectedSubmission, setSubmission] = useState("");
   const [columnHeaders, setColumnHeaders] = useState<ColDef[]>([]);
   const [rows, setRows] = useState<RowData[]>([]);
-  const [selectedSubmission, setSubmission] = useState("");
   let [flag, setFlag] = useState("");
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
 
-  const updateStateSubmission = () => {
-    setSubmission("states");
-    setFlag("");
-  };
-
-  const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
-
-  const handleClose = (event: React.MouseEvent<EventTarget>) => {
-    if (
-      anchorRef.current &&
-      anchorRef.current.contains(event.target as HTMLElement)
-    ) {
-      return;
-    }
-
-    setOpen(false);
-  };
-
-  function handleListKeyDown(event: React.KeyboardEvent) {
-    if (event.key === "Tab") {
-      event.preventDefault();
-      setOpen(false);
-    }
-  }
-
-  // return focus to the button when we transitioned from !open -> open
-  const prevOpen = React.useRef(open);
-  React.useEffect(() => {
-    if (prevOpen.current === true && open === false) {
-      anchorRef.current!.focus();
-    }
-
-    prevOpen.current = open;
-  }, [open]);
-
   function getColumnHeadersAndRows(stateMonthMatrix: IStateMonthMatrix[]) {
     const headers: ColDef[] = [];
     const stateRows: RowData[] = [];
-    let formattedStateName: string = "";
+    let formattedStateName = "";
     let janRow: RowData = {
       id: "January",
     };
@@ -141,12 +97,11 @@ const App = () => {
     let totRow: RowData = {
       id: "Total",
     };
-    debugger;
-    const colDef: ColDef = {
+    const monthColDef: ColDef = {
       field: "id",
       headerName: " ",
     };
-    headers.push(colDef);
+    headers.push(monthColDef);
     stateMonthMatrix.forEach((element: any, index: any) => {
       const colDef: ColDef = {
         field: _.camelCase(element.stateName),
@@ -156,99 +111,145 @@ const App = () => {
       };
       headers.push(colDef);
 
-      janRow['fieldName'] = element.januarySales;
+      janRow["fieldName"] = element.januarySales;
       formattedStateName = _.camelCase(element.stateName);
-      janRow[formattedStateName] = janRow["fieldName"]; 
-      delete janRow["fieldName"];  
+      janRow[formattedStateName] = janRow["fieldName"];
+      delete janRow["fieldName"];
 
-      febRow['fieldName'] = element.februarySales;
+      febRow["fieldName"] = element.februarySales;
       formattedStateName = _.camelCase(element.stateName);
-      febRow[formattedStateName] = febRow["fieldName"]; 
-      delete febRow["fieldName"];  
+      febRow[formattedStateName] = febRow["fieldName"];
+      delete febRow["fieldName"];
 
-      marRow['fieldName'] = element.marchSales;
+      marRow["fieldName"] = element.marchSales;
       formattedStateName = _.camelCase(element.stateName);
-      marRow[formattedStateName] = marRow["fieldName"]; 
-      delete febRow["fieldName"];  
+      marRow[formattedStateName] = marRow["fieldName"];
+      delete febRow["fieldName"];
 
-      aprRow['fieldName'] = element.aprilSales;
+      aprRow["fieldName"] = element.aprilSales;
       formattedStateName = _.camelCase(element.stateName);
-      aprRow[formattedStateName] = aprRow["fieldName"]; 
-      delete febRow["fieldName"];  
+      aprRow[formattedStateName] = aprRow["fieldName"];
+      delete febRow["fieldName"];
 
-      mayRow['fieldName'] = element.juneSales;
+      mayRow["fieldName"] = element.juneSales;
       formattedStateName = _.camelCase(element.stateName);
-      mayRow[formattedStateName] = mayRow["fieldName"]; 
-      delete febRow["fieldName"];  
+      mayRow[formattedStateName] = mayRow["fieldName"];
+      delete febRow["fieldName"];
 
-      junRow['fieldName'] = element.julySales;
+      junRow["fieldName"] = element.julySales;
       formattedStateName = _.camelCase(element.stateName);
-      junRow[formattedStateName] = junRow["fieldName"]; 
-      delete febRow["fieldName"];  
+      junRow[formattedStateName] = junRow["fieldName"];
+      delete febRow["fieldName"];
 
-      julRow['fieldName'] = element.augustSales;
+      julRow["fieldName"] = element.augustSales;
       formattedStateName = _.camelCase(element.stateName);
-      julRow[formattedStateName] = julRow["fieldName"]; 
-      delete febRow["fieldName"];  
+      julRow[formattedStateName] = julRow["fieldName"];
+      delete febRow["fieldName"];
 
-      augRow['fieldName'] = element.septemberSales;
+      augRow["fieldName"] = element.septemberSales;
       formattedStateName = _.camelCase(element.stateName);
-      augRow[formattedStateName] = augRow["fieldName"]; 
-      delete febRow["fieldName"];  
+      augRow[formattedStateName] = augRow["fieldName"];
+      delete febRow["fieldName"];
 
-      sepRow['fieldName'] = element.septemberSales;
+      sepRow["fieldName"] = element.septemberSales;
       formattedStateName = _.camelCase(element.stateName);
-      sepRow[formattedStateName] = sepRow["fieldName"]; 
-      delete febRow["fieldName"];  
+      sepRow[formattedStateName] = sepRow["fieldName"];
+      delete febRow["fieldName"];
 
-      octRow['fieldName'] = element.octoberSales;
+      octRow["fieldName"] = element.octoberSales;
       formattedStateName = _.camelCase(element.stateName);
-      octRow[formattedStateName] = octRow["fieldName"]; 
-      delete febRow["fieldName"];  
+      octRow[formattedStateName] = octRow["fieldName"];
+      delete febRow["fieldName"];
 
-      novRow['fieldName'] = element.novemberSales;
+      novRow["fieldName"] = element.novemberSales;
       formattedStateName = _.camelCase(element.stateName);
-      novRow[formattedStateName] = novRow["fieldName"]; 
-      delete febRow["fieldName"];  
+      novRow[formattedStateName] = novRow["fieldName"];
+      delete febRow["fieldName"];
 
-      decRow['fieldName'] = element.decemberSales;
+      decRow["fieldName"] = element.decemberSales;
       formattedStateName = _.camelCase(element.stateName);
-      decRow[formattedStateName] = decRow["fieldName"]; 
-      delete febRow["fieldName"];   
-      
-      avrRow['fieldName'] = element.averageSales;
-      formattedStateName = _.camelCase(element.stateName);
-      avrRow[formattedStateName] = avrRow["fieldName"]; 
-      delete febRow["fieldName"]; 
+      decRow[formattedStateName] = decRow["fieldName"];
+      delete febRow["fieldName"];
 
-      medRow['fieldName'] = element.averageSales;
+      avrRow["fieldName"] = element.averageSales;
       formattedStateName = _.camelCase(element.stateName);
-      medRow[formattedStateName] = medRow["fieldName"]; 
-      delete febRow["fieldName"]; 
+      avrRow[formattedStateName] = avrRow["fieldName"];
+      delete febRow["fieldName"];
 
-      totRow['fieldName'] = element.totalSales;
+      medRow["fieldName"] = element.averageSales;
       formattedStateName = _.camelCase(element.stateName);
-      totRow[formattedStateName] = totRow["fieldName"]; 
-      delete febRow["fieldName"]; 
+      medRow[formattedStateName] = medRow["fieldName"];
+      delete febRow["fieldName"];
+
+      totRow["fieldName"] = element.totalSales;
+      formattedStateName = _.camelCase(element.stateName);
+      totRow[formattedStateName] = totRow["fieldName"];
+      delete febRow["fieldName"];
     });
-    stateRows.push(janRow, febRow, marRow, aprRow, mayRow, junRow, julRow, augRow, sepRow, octRow, novRow, decRow, avrRow, medRow, totRow)
-    debugger;
+    stateRows.push(
+      janRow,
+      febRow,
+      marRow,
+      aprRow,
+      mayRow,
+      junRow,
+      julRow,
+      augRow,
+      sepRow,
+      octRow,
+      novRow,
+      decRow,
+      avrRow,
+      medRow,
+      totRow
+    );
     setColumnHeaders(headers);
     setRows(stateRows);
-    console.log(headers);
-    console.log(stateRows);
   }
 
-  useEffect(() => {
+  const updateStateSubmission = () => {
     axios
       .get<IStateMonthMatrix[]>(
         "http://localhost:5000/api/stateRegions/getByMatrix"
       )
       .then((response) => {
-        setStateRegions(response.data);
         getColumnHeadersAndRows(response.data);
+        setSubmission("states");
+        setFlag("");
       });
-  }, []);
+  };
+
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleClose = (event: React.MouseEvent<EventTarget>) => {
+    if (
+      anchorRef.current &&
+      anchorRef.current.contains(event.target as HTMLElement)
+    ) {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  function handleListKeyDown(event: React.KeyboardEvent) {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      setOpen(false);
+    }
+  }
+
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = React.useRef(open);
+  React.useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current!.focus();
+    }
+
+    prevOpen.current = open;
+  }, [open]);
 
   return (
     <div>
@@ -326,9 +327,12 @@ const App = () => {
           ""
         )}
       </div>
-      <div>{selectedSubmission === "states" ? "STATES TEST" : ""}</div>
-      <div style={{ background: "#FFFFFF", height: 400, width: "100%" , maxWidth: 1200}}>
-        <DataGrid rows={rows} columns={columnHeaders} pageSize={15} />
+      <div>
+        {selectedSubmission === "states" ? (
+          <StateTable columns={columnHeaders} rows={rows} />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

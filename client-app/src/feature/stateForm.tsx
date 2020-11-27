@@ -1,5 +1,4 @@
 /* eslint-disable no-restricted-globals */
-/* eslint-disable no-debugger */
 
 // React imports
 import React, { useEffect, useState } from "react";
@@ -74,12 +73,12 @@ const StateForm = ({ submissionHandler, selectedSubmission }: Props) => {
       .then(
         (response) => {
           console.log(response);
+          submissionHandler();
         },
         (error) => {
           console.log(error);
         }
       );
-    submissionHandler();
   };
 
   const addRecord = () => {

@@ -1,22 +1,32 @@
+/* eslint-disable prefer-const */
+
 // React imports
-import React, { useEffect, useState } from "react";
-import "../app/layout/styles.css";
+import React from "react";
+
+// Material UI imports
+import { DataGrid, ColDef, RowData } from "@material-ui/data-grid";
 
 // 3rd-party libraries
-import axios from "axios";
+import _ from "lodash";
 
-// Models
-import { IStateMonthMatrix } from "../app/models/stateMonthMatrix";
+interface Props {
+  columns: ColDef[];
+  rows: RowData[];
+}
 
-const stateTable = () => {
-  //   const [stateRegions, setStateRegions] = useState<IStateMonthMatrix[]>([]);
-  //   useEffect(() => {
-  //     axios
-  //       .get<IStateMonthMatrix[]>(
-  //         "http://localhost:5000/api/stateRegions/getByMatrix"
-  //       )
-  //       .then((response) => {
-  //         setStateRegions(response.data);
-  //       });
-  //   }, []);
+const StateTable = ({ columns, rows }: Props) => {
+  return (
+    <div
+      style={{
+        background: "#FFFFFF",
+        height: 400,
+        width: "100%",
+        maxWidth: 1200,
+      }}
+    >
+      <DataGrid rows={rows} columns={columns} pageSize={15} />
+    </div>
+  );
 };
+
+export default StateTable;
