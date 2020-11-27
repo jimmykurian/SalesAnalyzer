@@ -19,6 +19,7 @@ import {
   ColDef,
   ValueGetterParams,
   RowData,
+  ValueFormatterParams,
 } from "@material-ui/data-grid";
 
 // 3rd-party libraries
@@ -141,10 +142,17 @@ const App = () => {
       id: "Total",
     };
     debugger;
+    const colDef: ColDef = {
+      field: "id",
+      headerName: " ",
+    };
+    headers.push(colDef);
     stateMonthMatrix.forEach((element: any, index: any) => {
       const colDef: ColDef = {
         field: _.camelCase(element.stateName),
         headerName: element.stateName,
+        valueFormatter: (params: ValueFormatterParams) =>
+          params.value === 0 ? "-" : params.value,
       };
       headers.push(colDef);
 
@@ -320,7 +328,7 @@ const App = () => {
       </div>
       <div>{selectedSubmission === "states" ? "STATES TEST" : ""}</div>
       <div style={{ background: "#FFFFFF", height: 400, width: "100%" , maxWidth: 1200}}>
-        <DataGrid rows={rows} columns={columnHeaders} pageSize={15} checkboxSelection />
+        <DataGrid rows={rows} columns={columnHeaders} pageSize={15} />
       </div>
     </div>
   );
