@@ -26,6 +26,13 @@ namespace API.Controllers
             return await _mediator.Send(new List.Query());
         }
 
+        [HttpGet]
+        [Route("getByMatrix")]
+        public async Task<ActionResult<List<StateMonthMatrix>>> ListByMatrix()
+        {
+            return await _mediator.Send(new ListByMatrix.Query());
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<StateRegion>> Details(Guid id)
         {

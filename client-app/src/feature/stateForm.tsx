@@ -79,7 +79,6 @@ const StateForm = ({ submissionHandler, selectedSubmission }: Props) => {
           console.log(error);
         }
       );
-    debugger;
     submissionHandler();
   };
 
