@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the component 1`] = `
+<div>
+  <WithStyles(ForwardRef(Typography))
+    gutterBottom={true}
+    style={
+      Object {
+        "color": "#FFFFFF",
+      }
+    }
+    variant="h4"
+  >
+    <AssessmentOutlinedIcon
+      fontSize="large"
+    />
+    Sales Analyzer
+  </WithStyles(ForwardRef(Typography))>
+  <div
+    className="makeStyles-root-1"
+  >
+    <div>
+      <WithStyles(ForwardRef(Button))
+        aria-haspopup="true"
+        color="primary"
+        onClick={[Function]}
+        variant="contained"
+      >
+        Select Region
+      </WithStyles(ForwardRef(Button))>
+      <ForwardRef(Popper)
+        anchorEl={null}
+        disablePortal={true}
+        open={false}
+        transition={true}
+      >
+        <Component />
+      </ForwardRef(Popper)>
+    </div>
+  </div>
+  <div />
+  <div />
+</div>
+`;
