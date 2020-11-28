@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the component 1`] = `
+<div>
+  <div>
+    <WithStyles(ForwardRef(Grid))
+      container={true}
+      justify="center"
+    >
+      <WithStyles(ForwardRef(Typography))
+        gutterBottom={true}
+        style={
+          Object {
+            "color": "#FFFFFF",
+          }
+        }
+        variant="h6"
+      >
+        States
+      </WithStyles(ForwardRef(Typography))>
+    </WithStyles(ForwardRef(Grid))>
+  </div>
+  <div>
+    <form
+      onSubmit={[Function]}
+    >
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Add A State Record
+      </button>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Clear State Records
+      </button>
+      <input
+        type="submit"
+      />
+    </form>
+  </div>
+</div>
+`;
