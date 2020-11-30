@@ -137,7 +137,14 @@ I implemented CQRS as representation of Clean DDD. At a high level, commands/que
     as error-handling, caching, logging, validation, retry, and more.
 
 ## Credits used to build this README file
-[1] [Clean architcture series--Part 3](https://dev.to/pereiren/clean-architecture-series-part-3-2795) *by David Pereira*
-[2] [A Brief Intro to Clean Architecture Clean DDD, and CQRS](https://medium.com/software-alchemy/a-brief-intro-to-clean-architecture-clean-ddd-and-cqrs-23243c3f31b3) *by Jacobs Data Solutions*
-[3] [A Developer's Guide to CQRS Using .NET Core and MediatR](https://dzone.com/articles/a-developers-guide-to-cqrs-using-net-core-and-medi) *by Faris Karcic*
-[4] [Tackle Business Complexity in a Microservice with DDD and CQRS Patterns](https://github.com/dotnet/docs/blob/master/docs/architecture/microservices/microservice-ddd-cqrs-patterns/index.md) *by Youssef Victor, John Parente, Maira Wenzel, and David Pine*
+
+[1] [Clean architcture series--Part    3](https://dev.to/pereiren/clean-architecture-series-part-3-2795) *by  David Pereira* 
+
+[2] [A Brief Intro to Clean Architecture Clean DDD,    and    CQRS](https://medium.com/software-alchemy/a-brief-intro-to-clean-architecture-clean-ddd-and-cqrs-23243c3f31b3)
+*by Jacobs Data Solutions* 
+
+[3] [A Developer's Guide to CQRS Using .NET Core and    MediatR](https://dzone.com/articles/a-developers-guide-to-cqrs-using-net-core-and-medi)
+*by Faris Karcic* 
+
+[4] [Tackle Business Complexity in a Microservice with DDD and CQRS    Patterns](https://github.com/dotnet/docs/blob/master/docs/architecture/microservices/microservice-ddd-cqrs-patterns/index.md)
+*by Youssef Victor, John Parente, Maira Wenzel, and David Pine
