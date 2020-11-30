@@ -1,5 +1,31 @@
 # SalesAnalyzer
 Welcome to the README for the SalesAnalyzer App.
+
+Table of Contents for this README:
+
+ - How to Run Locally
+ - Technical Specifications
+	 - API (Back-End)
+		 - Language & Frameworks
+		 - 3rd Party Libraries
+	 - Client App (Front-End)
+		 - Language & Frameworks
+		 - 3rd Party Libraries
+ - CLI Commands
+	 - API (Back-End)
+	 - Client App (Front-End)
+ - Architectural & Design Considerations
+	 - Backend
+		 - Clean Architecture
+		 - Clean Domain-Driven Design (DDD)
+		 - Implementation of Clean Architecture and DDD using Mediator Pattern and Command Query Responsibility Segregation (CQRS)
+	 - Frontend
+		 - Create-React-App
+		 - TypeScript over Vanilla JavaScript
+		 - File Structure
+		 - Prettier for formatting and ESLint (AirBnB TypeScript Code Style Guide) for Linting
+ - Credits used to build this README file
+
 ## How to Run Locally
 To run the application follow the below instructions:
 
@@ -15,6 +41,7 @@ To run the application follow the below instructions:
 5. If you have the `API` project and the `client-app` project running you can have the front-end interact with the back-end.
 
 Backend URL: http://localhost:5000
+
 Frontend URL: http://localhost:3000
 
 ## Technical Specifications:
@@ -67,6 +94,7 @@ Frontend URL: http://localhost:3000
 	 - `npm run lint`: runs linting checks based off AirBnB TypeScript rules
 ## Architectural & Design Considerations:
 ### Backend:
+#### Clean Architecture: 
 When designing the backend I kept `Clean Architecture` principles in mind when I was creating this application. 
 
 Architecture pattern [promoted by Robert C. Martin (Uncle Bob) in 2012](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) trying to do one more step in architecture patterns when thinking about isolated, maintainable, testable, scalable, evolutive and well-written code. Following similar principles to Hexagonal and Onion, Uncle Bob presented his architecture together with this diagram:
