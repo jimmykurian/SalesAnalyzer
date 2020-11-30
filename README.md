@@ -24,6 +24,12 @@ Table of Contents for this README:
 		 - TypeScript over Vanilla JavaScript
 		 - File Structure
 		 - Prettier for formatting and ESLint (AirBnB TypeScript Code Style Guide) for Linting
+ - Challenges/Things I would have done Differently
+	 - Data Model
+	 - Use Semantic UI over Material UI
+		 - React Hook Form and Material Datapicker Compatibility issues
+	 - More Robust Data Grid Solution like ag-Grid
+	 - Proposed Future Additions/Time Constraints
  - Credits used to build this README file
 
 ## How to Run Locally
@@ -188,6 +194,28 @@ Prettier scans your files for style issues and automatically reformats your code
 Both of these tools aid in catching a lot of syntax errors and simple forms of type errors, such as undefined variable and readability standards. In additon I used a ported over to TypeScript version of the AirBnb Style Guide for React to practice development best practices for React:
 https://airbnb.io/javascript/react/
 
+
+## Challenges/Things I would have done Differently:
+### Data Model
+I would have done a different data model after working the data. The data grid would have been better suited in a non-relational data store, like NoSQL  document based CosmosDB or a GraphQL database. It would have saved me time on the mapping that I had to end up doing to get the data extracted out of a relational table to fit in data grid model. 
+
+### Use Semantic UI instead of Material UI
+TODO
+
+### More Robust Data Grid Solution like ag-Grid
+TODO
+
+### Future Additions
+#### Unfinished due to  time constraints
+
+ - Ability to take in a City
+ - Ability to take in Year for State and Month for Country
+ - Display Country Data
+
+#### Future Tech Adds
+ - Swagger for API Documentation
+ - AutoMapper for future complex mapping usecases
+ 
 ## Credits used to build this README file
 
 [1] [Clean architcture series--Part 3](https://dev.to/pereiren/clean-architecture-series-part-3-2795) *by  David Pereira* 
