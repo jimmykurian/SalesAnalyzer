@@ -103,7 +103,7 @@ You can see that the SalesAnalyzer app is laid out in a Clean DDD way:
     │   ├── Domain
     |   |   ├── Aggregate root folders      # Domain layer following DDD
     |   |   ├──     (entities, domain services and repositories interfaces per aggreagate root)
-    |	├── Pesistence
+    |   ├── Pesistence
     |   |   ├── Databases
     |   |   ├──     (scripts to seed and maintain database and database migrations)      
     └── ...
