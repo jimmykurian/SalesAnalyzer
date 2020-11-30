@@ -88,3 +88,50 @@ The key principles of this architecture are:
 -   **Inner circles cannot depend on outer circles**
 -   **Outer circles cannot influence inner circles**
 
+#### Clean Domain-Driven Design (DDD):
+Clean Domain-Driven Design represents the next logical step in the development of software architectures. This approach is derived from Uncle Bob’s original architecture but conceptually slightly different. It is the same in that it uses the same concentric layer approach at a high level, however domain-driven design is utilized to architect out the inner core. Furthermore, the DDD impetus toward domain separation into different bounded contexts also informs this design, as those bounded contexts now become guides for _horizontal separation_ of each layer of the stack. This is a true, modern, heliocentric model to build and deliver complex business applications. There is not unanimous agreement on how to go about this, so I am presenting my interpretation. This is influenced heavily by [Jason Taylor’s architecture](https://www.youtube.com/watch?v=_lwCVE_XgqI&feature=youtu.be), which in turn seems to be inspired by the architecture presented in the Microsoft E-book, [.NET Microservices: Architecture for Containerized .NET Applications](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/), specifically the [chapter on DDD and CQRS](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/).
+
+You can see that the SalesAnalyzer app is laid out in a Clean DDD way:
+
+    ├── SalesAnalyzer
+    │   ├── API           # Presentation layer
+    |   |   ├── GetStateRegions      # Use Case to get all the State Regions tasks
+    |   |   |   ├── StateRegionsController.cs  # Todo Controller for the Get All State Regions
+    │   ├── Application         # Application layer
+    |   |   ├── Boundaries      # Input and output ports helping us to cross boundaries
+    |   |   ├── Services      # Application services to handle application business logic
+    │   ├── Domain
+    |   |   ├── Aggregate root folders      # Domain layer following DDD
+    |   |   ├──     (entities, domain services and repositories interfaces per aggreagate root)
+    |	├── Pesistence
+    |   |   ├── Databases
+    |   |   ├──     (scripts to seed and maintain database and database migrations)      
+    └── ...
+    
+Domain
+In a perfect world, this layer wouldn’t have any dependencies, and it would only contain entities, value objects, and maybe some Domain level custom exceptions and entity logic. 
+
+Application
+Together with the Domain layer, the Application layer forms the Core of the solution that should be able to operate and provide business logic independently from outer layers and depend solely upon the Domain layer. It contains all of the good stuff, such as the business logic (use cases), DTO’s, interfaces, and all of the CQRS stuff..
+
+Persistence
+Compared to the Infrastructure layer, this layer also holds the logic for communication with outside systems, but its specific purpose is to communicate with databases. All of this logic can also be placed under the Infrastructure layer. This layer only depends on the Application layer.
+
+Presentation
+This is the interactable layer (by the outside world) which allows clients to get visible results after requesting data. This layer can be in the form of an API, console application, GUI client application, etc. Like Persistence, it also depends only on the Application layer.
+
+#### Implementation of Clean Architecture and DDD using Mediator Pattern and Command Query Responsibility Segregation (CQRS):
+![](https://res.cloudinary.com/practicaldev/image/fetch/s--zWl-d5Rw--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://cdn-images-1.medium.com/max/1024/0%2AG5S6qta2TmZHDRcG.png)
+
+I used the .NET implementation of the Mediator pattern created by Jimmy Bogard for the Application layer. I used it because of two primary benefits:
+
+ 1. Objects delete their interaction to a mediator object instead of interacting with each other directly
+ 2. It should be possible to change the interaction between a set of object independetly.
+ 
+I implemented CQRS as representation of Clean DDD. At a high level, commands/queries are instantiated in the Presentation layer (inside controller actions) and communicated to the Application layer, which then performs the business orchestration logic and executes the high-level task we're interested in. CQRS allows us these two main advantages:
+
+ 1. It simplifies my code because I didn’t have to write boilerplate
+    to wire up commands/queries to their respective handlers.
+ 2. I have created a high-level  _task execution pipeline_  in the
+    application, within which allows me to inject cross-cutting concerns such
+    as error-handling, caching, logging, validation, retry, and more.
