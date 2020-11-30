@@ -136,15 +136,39 @@ I implemented CQRS as representation of Clean DDD. At a high level, commands/que
     application, within which allows me to inject cross-cutting concerns such
     as error-handling, caching, logging, validation, retry, and more.
 
+### Frontend
+
+#### Create-React-App
+For the frontend architecture and design considerations, I decided to go with a single page app (SPA) using React for its performance and speed of dev work. Specifically using `create-react-app` created and supported by Facebook, I was able to get work React SPA off the ground in minutes. 
+
+#### TypeScript over Vanilla JavaScript
+I chose to implement TypeScript over JavaScript for the following reasons:
+
+ 1. Readability
+ 2. Code is easier and faster to implement
+ 3. Code easier to refactor
+
+#### File Structure
+I followed the file structure laid out be React Org to group files be features:
+https://reactjs.org/docs/faq-structure.html
+
+#### Prettier for formatting and ESLint (AirBnB TypeScript Code Style Guide) for Linting:
+ESLint performs automated scans of your JavaScript files for common syntax and style errors.
+
+Prettier scans your files for style issues and automatically reformats your code to ensure consistent rules are being followed for indentation, spacing, semicolons, single quotes vs double quotes, etc.
+
+Both of these tools aid in catching a lot of syntax errors and simple forms of type errors, such as undefined variable and readability standards. In additon I used a ported over to TypeScript version of the AirBnb Style Guide for React to practice development best practices for React:
+https://airbnb.io/javascript/react/
+
 ## Credits used to build this README file
 
-[1] [Clean architcture series--Part    3](https://dev.to/pereiren/clean-architecture-series-part-3-2795) *by  David Pereira* 
+[1] [Clean architcture series--Part 3](https://dev.to/pereiren/clean-architecture-series-part-3-2795) *by  David Pereira* 
 
-[2] [A Brief Intro to Clean Architecture Clean DDD,    and    CQRS](https://medium.com/software-alchemy/a-brief-intro-to-clean-architecture-clean-ddd-and-cqrs-23243c3f31b3)
+[2] [A Brief Intro to Clean Architecture Clean DDD, and CQRS](https://medium.com/software-alchemy/a-brief-intro-to-clean-architecture-clean-ddd-and-cqrs-23243c3f31b3)
 *by Jacobs Data Solutions* 
 
-[3] [A Developer's Guide to CQRS Using .NET Core and    MediatR](https://dzone.com/articles/a-developers-guide-to-cqrs-using-net-core-and-medi)
+[3] [A Developer's Guide to CQRS Using .NET Core and MediatR](https://dzone.com/articles/a-developers-guide-to-cqrs-using-net-core-and-medi)
 *by Faris Karcic* 
 
-[4] [Tackle Business Complexity in a Microservice with DDD and CQRS    Patterns](https://github.com/dotnet/docs/blob/master/docs/architecture/microservices/microservice-ddd-cqrs-patterns/index.md)
-*by Youssef Victor, John Parente, Maira Wenzel, and David Pine
+[4] [Tackle Business Complexity in a Microservice with DDD and CQRS Patterns](https://github.com/dotnet/docs/blob/master/docs/architecture/microservices/microservice-ddd-cqrs-patterns/index.md)
+*by Youssef Victor, John Parente, Maira Wenzel, and David Pine*
