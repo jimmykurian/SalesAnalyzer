@@ -27,7 +27,6 @@ Table of Contents for this README:
  - Challenges/Things I would have done Differently
 	 - Data Model
 	 - Use Semantic UI over Material UI
-		 - React Hook Form and Material Datapicker Compatibility issues
 	 - More Robust Data Grid Solution like ag-Grid
 	 - Proposed Future Additions/Time Constraints
  - Credits used to build this README file
@@ -200,10 +199,10 @@ https://airbnb.io/javascript/react/
 I would have done a different data model after working the data. The data grid would have been better suited in a non-relational data store, like NoSQL  document based CosmosDB or a GraphQL database. It would have saved me time on the mapping that I had to end up doing to get the data extracted out of a relational table to fit in data grid model. 
 
 ### Use Semantic UI instead of Material UI
-TODO
+Material UI had longer set up time and was not as quick to develop with, compared to Semantic UI. In addition, Material DatePicker had integration issues with react-hook-forms library, so I had to abandonen that idea for the Year field and stick to just form validation.
 
 ### More Robust Data Grid Solution like ag-Grid
-TODO
+A more robust data grid solution like ag-Grid would have allowed me to create a grid "form" input for the user input instead of creating a standard form for user input. This would allow me to use the updated Data Model of noSQL solution.
 
 ### Future Additions
 #### Unfinished due to  time constraints
@@ -215,6 +214,13 @@ TODO
 #### Future Tech Adds
  - Swagger for API Documentation
  - AutoMapper for future complex mapping usecases
+ - Improved Handling of HTTP Status/Error Codes
+ - Increase Unit Test Coverage
+ - Code Refactoring:
+ 	- Backend:
+		- Utilize IEnumerable for Application classes
+	- Frontend
+		- More programattic way of iterating through dynamic object and property creation
  
 ## Credits used to build this README file
 
