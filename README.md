@@ -142,15 +142,19 @@ You can see that the SalesAnalyzer app is laid out in a Clean DDD way:
     └── ...
     
 Domain
+
 In a perfect world, this layer wouldn’t have any dependencies, and it would only contain entities, value objects, and maybe some Domain level custom exceptions and entity logic. 
 
 Application
+
 Together with the Domain layer, the Application layer forms the Core of the solution that should be able to operate and provide business logic independently from outer layers and depend solely upon the Domain layer. It contains all of the good stuff, such as the business logic (use cases), DTO’s, interfaces, and all of the CQRS stuff..
 
 Persistence
+
 Compared to the Infrastructure layer, this layer also holds the logic for communication with outside systems, but its specific purpose is to communicate with databases. All of this logic can also be placed under the Infrastructure layer. This layer only depends on the Application layer.
 
 Presentation
+
 This is the interactable layer (by the outside world) which allows clients to get visible results after requesting data. This layer can be in the form of an API, console application, GUI client application, etc. Like Persistence, it also depends only on the Application layer.
 
 #### Implementation of Clean Architecture and DDD using Mediator Pattern and Command Query Responsibility Segregation (CQRS):
@@ -158,8 +162,8 @@ This is the interactable layer (by the outside world) which allows clients to ge
 
 I used the .NET implementation of the Mediator pattern created by Jimmy Bogard for the Application layer. I used it because of two primary benefits:
 
- 1. Objects delete their interaction to a mediator object instead of interacting with each other directly
- 2. It should be possible to change the interaction between a set of object independetly.
+ 1. Objects defines their interaction to a mediator object instead of interacting with each other directly
+ 2. It should be possible to change the interaction between a set of object independently.
  
 I implemented CQRS as representation of Clean DDD. At a high level, commands/queries are instantiated in the Presentation layer (inside controller actions) and communicated to the Application layer, which then performs the business orchestration logic and executes the high-level task we're interested in. CQRS allows us these two main advantages:
 
