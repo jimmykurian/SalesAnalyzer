@@ -219,6 +219,7 @@ A more robust data grid solution like ag-Grid would have allowed me to create a 
 #### Future Tech Adds
  - Swagger for API Documentation
  - AutoMapper for future complex mapping usecases
+ - Logging via Dependecy Injection
  - Improved Handling of HTTP Status/Error Codes
  - Increase Unit Test Coverage
  - Code Refactoring:
