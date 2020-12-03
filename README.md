@@ -220,6 +220,7 @@ A more robust data grid solution like ag-Grid would have allowed me to create a 
  - Swagger for API Documentation
  - AutoMapper for future complex mapping usecases
  - Logging via Dependecy Injection
+ - Move validation to backend using FluentValidation
  - Improved Handling of HTTP Status/Error Codes
  - Increase Unit Test Coverage
  - Code Refactoring:
